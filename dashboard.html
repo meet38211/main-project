@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Couple Space – Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #ffe4f0, #e3f0ff);
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --accent: #ff6aa2;
+      --accent-soft: #ffe1ee;
+      --text-main: #1f2933;
+      --text-soft: #6b7280;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.14);
+      --radius-xl: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1120px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.7), transparent 55%);
+      border-radius: 32px;
+      padding: 26px 28px 30px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top navbar */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 18px;
+      background: conic-gradient(from 180deg, #ffb4d4, #ffd8b5, #c1e3ff, #ffb4d4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-soft);
+      text-decoration: none;
+    }
+
+    .nav-btn {
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #111827;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn span {
+      font-size: 15px;
+    }
+
+    /* Main layout */
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    /* Hero text */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-soft);
+      border: 1px solid #ffe0ef;
+      margin-bottom: 14px;
+    }
+
+    .hero-eyebrow span {
+      font-size: 14px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 420px;
+      margin-bottom: 18px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      color: #fff7fb;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 14px 30px rgba(236, 72, 153, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary span {
+      font-size: 16px;
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 10px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-footnote strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Right: dashboard preview */
+    .preview {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: 18px 18px 20px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .preview-names {
+      font-size: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #9b1643;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preview-status {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: #f9fafb;
+      border-radius: 16px;
+      padding: 10px 11px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+      border-color: rgba(251, 113, 133, 0.7);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span {
+      font-size: 14px;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .preview-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .preview-mini {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+      background: #fecaca;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      margin-left: -4px;
+    }
+
+    .avatar:nth-child(2) {
+      background: #bfdbfe;
+    }
+
+    .badge-safe {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* Responsive */
+    @media (max-width: 840px) {
+      .page {
+        padding: 22px 18px 24px;
+        border-radius: 26px;
+      }
+
+      .main {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero-title {
+        font-size: 24px;
+      }
+
+      .hero-subtitle {
+        font-size: 13px;
+      }
+
+      .preview-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="content">
+      <!-- NAVBAR -->
+      <header class="nav">
+        <div class="brand">
+          <div class="brand-logo">💗</div>
+          <div class="brand-text">
+            <span class="brand-name">CoupleRoom</span>
+            <span class="brand-tag">Shared home for two hearts</span>
+          </div>
+        </div>
+        <div class="nav-right">
+          <a href="#" class="nav-link">Product</a>
+          <a href="#" class="nav-link">Pricing</a>
+          <a href="#" class="nav-link">Stories</a>
+          <button class="nav-btn">
+            <span>●</span> Demo mode
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN SECTION -->
+      <section class="main">
+        <!-- LEFT: HERO COPY -->
+        <div>
+          <div class="hero-eyebrow">
+            <span>✨</span> Private dashboard for couples
+          </div>
+
+          <h1 class="hero-title">
+            Your own <span class="hero-gradient">shared space</span><br />
+            to talk, plan & remember.
+          </h1>
+
+          <p class="hero-subtitle">
+            A cozy digital room where just two people exist — with love notes, mood check-ins,
+            shared memories and a calm pastel dashboard built for long-term relationships.
+          </p>
+
+          <div class="hero-ctas">
+            <button class="btn-primary">
+              Start demo space <span>→</span>
+            </button>
+            <button class="btn-ghost">
+              View dashboard preview
+            </button>
+          </div>
+
+          <p class="hero-footnote">
+            <strong>Demo only:</strong> this version doesn’t save data yet. It’s a visual preview of your future product.
+          </p>
+        </div>
+
+        <!-- RIGHT: DASHBOARD PREVIEW -->
+        <aside class="preview" aria-label="Couple dashboard preview (demo)">
+          <header class="preview-header">
+            <div class="preview-names">
+              💞 Abhishek & Partner
+            </div>
+            <div class="preview-status">
+              Today · 2 features active
+            </div>
+          </header>
+
+          <div class="preview-grid">
+            <!-- Love Notes -->
+            <div class="card">
+              <div class="card-title">
+                <span>💌</span> Love Notes
+              </div>
+              <div class="card-desc">
+                Tiny post-its you can pin on your shared board. “Drink water”, “I’m proud of you”, “Miss you already.” 
+              </div>
+              <div class="pill">
+                <span class="pill-dot"></span> Daily use
+              </div>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="card">
+              <div class="card-title">
+                <span>🌤</span> Mood Tracker
+              </div>
+              <div class="card-desc">
+                Each of you picks an emoji for the day. If someone is low, the app gently suggests: “Maybe check in?”
+              </div>
+              <div class="pill">
+                Weekly insights
+              </div>
+            </div>
+
+            <!-- Memory Gallery -->
+            <div class="card">
+              <div class="card-title">
+                <span>📸</span> Memory Gallery
+              </div>
+              <div class="card-desc">
+                Trips, selfies, voice notes and little videos — all in a soft, shared timeline for both of you.
+              </div>
+              <div class="pill">
+                Favorites · Starred
+              </div>
+            </div>
+
+            <!-- Shared Calendar -->
+            <div class="card">
+              <div class="card-title">
+                <span>📅</span> Shared Calendar
+              </div>
+              <div class="card-desc">
+                Anniversaries, movie nights, call reminders and monthly goals in one gentle, shared calendar.
+              </div>
+              <div class="pill">
+                Smart reminders
+              </div>
+            </div>
+          </div>
+
+          <footer class="preview-footer">
+            <div class="preview-mini">
+              <div class="avatar-stack">
+                <div class="avatar">A</div>
+                <div class="avatar">P</div>
+              </div>
+              <span>Real-time sync for just you two.</span>
+            </div>
+            <div class="badge-safe">
+              🔒 End-to-end privacy (concept)
+            </div>
+          </footer>
+        </aside>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
